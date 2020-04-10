@@ -1,0 +1,17 @@
+//checking for low quantity & capturing cell value and product name
+  let cell = sheet.getActiveCell();
+  let quantityValue = cell.getValue();
+  let productName = sheet.getRange(cell.getRow(), 18 /* Column No */).getValue();
+  var columnLabel = sheet.getRange(/* Row No */ 1, cell.getColumn()).getValue();
+  
+  if(columnLabel == "Boxes" || columnLabel == "Quantity"){
+    //Applying if condition on quantity value to send email only when qv = 1 or 0
+    if (quantityValue < 2 /* Threshhold Value*/){
+      // Fetch the email address
+      var emailAddress = "**********@gmail.com"
+      var message = 'Product:' + productName + " - " + quantityValue;
+      var subject = 'Low Inventory Alert!';
+      // Send Email alert
+      MailApp.sendEmail(emailAddress, subject, message);
+    }
+  }
